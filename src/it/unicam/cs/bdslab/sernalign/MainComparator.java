@@ -186,7 +186,9 @@ public class MainComparator {
 
 	    // Align t1 and t2, which contain two structural RNA trees
 	    StructuralSequenceAligner a = new StructuralSequenceAligner(s1,
-		    s2);
+		    s2,
+			cmd.hasOption("n")
+		);
 
 	    // Produce Output
 	    String output = a.printOptimalAlignment();
@@ -274,5 +276,10 @@ public class MainComparator {
 		.longOpt("outdist").build();
 	options.addOption(o10);
 
+	options.addOption(
+			"n",
+			"no-constraints",
+			false,
+			"Do not use constraints for the alignment (works only with option -a)");
     }
 }

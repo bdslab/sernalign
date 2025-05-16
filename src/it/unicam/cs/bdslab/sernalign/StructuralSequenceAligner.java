@@ -47,6 +47,8 @@ public class StructuralSequenceAligner {
     private int[][] m;
     /* matrix for traceback */
     private int[][] traceback;
+    /* flag to indicate if the alignment should respect structural sequences constraints */
+	private final boolean constraints;
 
     /* best alignment as a list of edit operations */
     LinkedList<EditOperation> alignment;
@@ -57,9 +59,15 @@ public class StructuralSequenceAligner {
      * 
      * @param x the first structural sequence to align
      * @param y the second structural sequence to align
+	 * @param constraints flag to indicate if the alignment should respect structural
+	 *                    sequences  constraints
+	 * @throws NullPointerException if one of the two sequences is null
+	 *
      */
     public StructuralSequenceAligner(StructuralSequence x,
-	    StructuralSequence y) {
+	    StructuralSequence y,
+	 	boolean constraints
+	) {
 	if (x == null || y == null)
 	    throw new NullPointerException(
 		    "Tentativo di definire un aligner tra due sequenze di cui almeno una è null");
@@ -67,10 +75,23 @@ public class StructuralSequenceAligner {
 	this.y = y;
 	this.m = new int[x.size() + 1][y.size() + 1];
 	this.traceback = new int[x.size() + 1][y.size() + 1];
+	this.constraints = constraints;
 	solve();
 	this.alignment = new LinkedList<EditOperation>();
 	traceBack(this.x.size(), this.y.size());
     }
+
+	/**
+	 * Construct a minimum alignment to transform a structural sequence into
+	 * another respecting structural sequences constraints.
+	 *
+	 * @param x the first structural sequence to align
+	 * @param y the second structural sequence to align
+	 */
+	public StructuralSequenceAligner(StructuralSequence x,
+									 StructuralSequence y) {
+		this(x, y, true);
+	}
 
     private void solve() {
 	// initialize first raw and first column
@@ -135,14 +156,19 @@ public class StructuralSequenceAligner {
 		// write the value in the matrix
 		this.m[i][j] = min;
 		this.traceback[i][j] = min_direction;
+		//System.out.println(printMatrix());
 	    }
     }
 
-    private static boolean isCorrectInPosition(int h, int pos) {
-	// Tells whether the value h can be in position pos in a numerical
-	// sequence
-	return h >= 1 && h <= 2 * pos - 1;
+    private boolean isCorrectInPosition(int h, int pos) {
+		// Tells whether the value h can be in position pos in a numerical
+		// sequence
+		return !this.constraints || h >= 1 && h <= 2 * pos - 1;
     }
+
+	private static boolean isCorrectInPositionConstraint(int h, int pos) {
+		return h >= 1 && h <= 2 * pos - 1;
+	}
 
     /*
      * For testing purposes
@@ -290,19 +316,19 @@ public class StructuralSequenceAligner {
 	    return true;
 	if (this.alignment.get(ell).getJ() == null) {
 	    // deletion operation
-	    return isCorrectInPosition(this.x.getStructuralSequence()[i - 1],
+	    return isCorrectInPositionConstraint(this.x.getStructuralSequence()[i - 1],
 		    j) && checkAlignment(i - 1, j, ell - 1);
 	}
 
 	if (this.alignment.get(ell).getI() == null) {
 	    // insertion operation
-	    return isCorrectInPosition(this.y.getStructuralSequence()[j - 1],
+	    return isCorrectInPositionConstraint(this.y.getStructuralSequence()[j - 1],
 		    i) && checkAlignment(i, j - 1, ell - 1);
 	}
 
 	// match/mismatch operation
-	return isCorrectInPosition(this.x.getStructuralSequence()[i - 1], j)
-		&& isCorrectInPosition(this.y.getStructuralSequence()[j - 1],
+	return isCorrectInPositionConstraint(this.x.getStructuralSequence()[i - 1], j)
+		&& isCorrectInPositionConstraint(this.y.getStructuralSequence()[j - 1],
 			i)
 		&& checkAlignment(i - 1, j - 1, ell - 1);
     }
@@ -324,6 +350,20 @@ public class StructuralSequenceAligner {
 	}
 	return s.toString();
     }
+
+	public String printMatrix() {
+		StringBuilder matrix = new StringBuilder();
+		for (int i = 0; i < this.m.length; i++) {
+			for (int j = 0; j < this.m[0].length; j++) {
+				matrix.append(this.m[i][j]);
+				if (j < this.m[0].length - 1) {
+					matrix.append(", ");
+				}
+			}
+			matrix.append("\n");
+		}
+		return matrix.toString();
+	}
 
 
     public List<EditOperation> getOptimalAlignment() {

@@ -87,6 +87,13 @@ public class WorkbenchComparator {
                 .longOpt("json")
                 .build();
         options.addOption(o5);
+
+        options.addOption(
+                "n",
+                "no-constraints",
+                false,
+                "Do not use constraints on the alignment");
+
 	/*Option o6 = Option.builder("c").desc(
 		"Check the presence of only standard Watson-Crick and wobble base pairing (disabled by default)")
 		.longOpt("chkpair").build();
@@ -119,7 +126,7 @@ public class WorkbenchComparator {
                     true);
             System.exit(1);
         }
-
+        boolean noConstraints = !cmd.hasOption("n");
         // Manage Option h
         if (cmd.hasOption("h")) {
             formatter.printHelp(CommandLineMessages.LAUNCH_COMMAND_WB,
@@ -398,7 +405,7 @@ public class WorkbenchComparator {
                     System.out.println("Processing files: " + f1.getName()
                             + " and " + f2.getName());
                     startTimeNano = System.nanoTime();
-                    StructuralSequenceAligner a = new StructuralSequenceAligner(art1, art2);
+                    StructuralSequenceAligner a = new StructuralSequenceAligner(art1, art2, noConstraints);
                     elapsedTimeNano = System.nanoTime() - startTimeNano;
 
                     // Write the output file

@@ -375,6 +375,67 @@ class StructuralSequenceAlignerTest {
 	}
     }
 
+	@Test
+	void testEditDistanceIgnoringConstraints() throws IOException {
+		// Load structural sequences from files
+		RNASecondaryStructure s1 = RNASecondaryStructureFileReader
+				.readStructure("test/struct1153.aas", false);
+		StructuralSequence seq1 = new StructuralSequence(s1);
+
+		RNASecondaryStructure s2 = RNASecondaryStructureFileReader
+				.readStructure("test/struct11553.aas", false);
+		StructuralSequence seq2 = new StructuralSequence(s2);
+
+		// Perform alignment ignoring constraints
+		StructuralSequenceAligner aligner = new StructuralSequenceAligner(seq1, seq2, false);
+
+		// Print alignment matrix
+		System.out.println("Alignment Matrix Seq 1 - Seq 2 (Ignoring Constraints):");
+		printMatrix(aligner.getMatrix());
+
+		// Print optimal alignment
+		System.out.println("Optimal Alignment Seq 1 - Seq 2:");
+		System.out.println(aligner.printOptimalAlignment());
+
+		// Assert that the alignment is valid (ignoring constraints)
+		assertTrue(aligner.checkOptimalAlignment());
+	}
+
+	@Test
+	public void testNCSequenceAligner1() throws IOException {
+		RNASecondaryStructure s1 = RNASecondaryStructureFileReader
+				.readStructure("test/struct11.aas", false);
+		StructuralSequence seq1 = new StructuralSequence(s1);
+		System.out.println("Seq 1 = " + seq1.printStructuralSequence());
+		// { 1, 1}
+		RNASecondaryStructure s2 = RNASecondaryStructureFileReader
+				.readStructure("test/struct1357.aas", false);
+		StructuralSequence seq2 = new StructuralSequence(s2);
+		System.out.println("Seq 2 =" + seq2.printStructuralSequence());
+		// { 1, 3, 5, 7 }
+		StructuralSequenceAligner a1 = new StructuralSequenceAligner(seq1,
+				seq2,
+				false);
+		System.out.println("Alignment Matrix Seq 1 - Seq 2:");
+		printMatrix(a1.getMatrix());
+		System.out.println("Optimal Alignment Seq 1 - Seq 2: ");
+		System.out.println(a1.printOptimalAlignment());
+		System.out.println("Constraints of Optimal Alignment Seq 1 - Seq 2:");
+		System.out.println(a1.printOptimalAlignmentConstraints());
+		System.out.println();
+		assertFalse(a1.checkOptimalAlignment());
+		System.out.println();
+		StructuralSequenceAligner a2 = new StructuralSequenceAligner(seq2,
+				seq1,
+				false);
+		System.out.println("Alignment Matrix Seq 2 - Seq 1:");
+		printMatrix(a2.getMatrix());
+		System.out.println("Optimal Alignment Seq 2 - Seq 1: ");
+		System.out.println(a2.printOptimalAlignment());
+		System.out.println("");
+		System.out.println("Constraints of Optimal Alignment Seq 2 - Seq 1:");
+		assertFalse(a2.checkOptimalAlignment());
+	}
 //    @Test
 //    void testGetMatrix() {
 //	fail("Not yet implemented");
