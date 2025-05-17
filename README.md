@@ -80,7 +80,8 @@ The following <options> can be used:
 	-s,--struct <input-file>               Produce the structural sequence
                                            corresponding to the given
                                            structure
-
+    -n, --no-constraints                   Do not use constraints in the alignment
+                                           (works only with option -a)
 ## Using SERNAlignWorkbench
 
 Open a terminal window of your operating system and use the change directory 
@@ -97,7 +98,8 @@ The following <options> can be used:
 	-o,--output <file-1 file-2>   Output structure descriptions on file-1 and
                                   comparison results on file-2 instead of
                                   generating the default ouput files
-
+    -n, --no-constraints          Do not use constraints in the alignment
+                                  (works only with option -a)
 ## SERNAlign.jar usage examples
 
 Subfolder `examples`, distributed with SERNAlign, contains sample input files 
