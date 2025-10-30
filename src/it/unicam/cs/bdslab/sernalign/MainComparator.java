@@ -187,7 +187,7 @@ public class MainComparator {
 	    // Align t1 and t2, which contain two structural RNA trees
 	    StructuralSequenceAligner a = new StructuralSequenceAligner(s1,
 		    s2,
-			cmd.hasOption("n")
+			!cmd.hasOption("n")
 		);
 
 	    // Produce Output
