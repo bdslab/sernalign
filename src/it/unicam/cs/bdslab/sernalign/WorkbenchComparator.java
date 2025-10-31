@@ -126,7 +126,7 @@ public class WorkbenchComparator {
                     true);
             System.exit(1);
         }
-        boolean noConstraints = !cmd.hasOption("n");
+        boolean noConstraints = cmd.hasOption("n");
         // Manage Option h
         if (cmd.hasOption("h")) {
             formatter.printHelp(CommandLineMessages.LAUNCH_COMMAND_WB,
@@ -405,7 +405,7 @@ public class WorkbenchComparator {
                     System.out.println("Processing files: " + f1.getName()
                             + " and " + f2.getName());
                     startTimeNano = System.nanoTime();
-                    StructuralSequenceAligner a = new StructuralSequenceAligner(art1, art2, noConstraints);
+                    StructuralSequenceAligner a = new StructuralSequenceAligner(art1, art2, !noConstraints);
                     elapsedTimeNano = System.nanoTime() - startTimeNano;
 
                     // Write the output file
