@@ -1,7 +1,7 @@
 /**
  * SERNAlign - Structural sEquence RNA secondary structure Alignment
  * 
- * Copyright (C) 2023 Luca Tesei, Francesca Levi, Michela Quadrini, 
+ * Copyright (C) 2024 Luca Tesei, Francesca Levi, Michela Quadrini,
  * Emanuela Merelli - BioShape and Data Science Lab at the University of 
  * Camerino, Italy - http://www.emanuelamerelli.eu/bigdata/
  *  
@@ -143,8 +143,8 @@ public class WeakBond implements Comparable<WeakBond> {
     @Override
     public int compareTo(WeakBond o) {
 	Integer right, oright;
-	right = new Integer(this.right);
-	oright = new Integer(o.right);
+	right = Integer.valueOf(this.right);
+	oright = Integer.valueOf(o.right);
 	return right.compareTo(oright);
     }
 

@@ -1,7 +1,7 @@
 /**
  * SERNAlign - Structural sEquence RNA secondary structure Alignment
  * 
- * Copyright (C) 2023 Luca Tesei, Francesca Levi, Michela Quadrini, 
+ * Copyright (C) 2024 Luca Tesei, Francesca Levi, Michela Quadrini,
  * Emanuela Merelli - BioShape and Data Science Lab at the University of 
  * Camerino, Italy - http://www.emanuelamerelli.eu/bigdata/
  *  

@@ -1,7 +1,7 @@
 /**
  * SERNAlign - Structural sEquence RNA secondary structure Alignment
  * 
- * Copyright (C) 2023 Luca Tesei, Francesca Levi, Michela Quadrini, 
+ * Copyright (C) 2024 Luca Tesei, Francesca Levi, Michela Quadrini,
  * Emanuela Merelli - BioShape and Data Science Lab at the University of 
  * Camerino, Italy - http://www.emanuelamerelli.eu/bigdata/
  *  
@@ -57,7 +57,7 @@ public interface CommandLineMessages {
 	    + " -a structS1.aas.txt structS2.aas.txt\n\nPrint on the standard "
 	    + "output one optimal correct alignment of the structural "
 	    + "sequences corresponding to the two given RNA secondary structures "
-	    + "structS1.aas.txt and structS2.aas.txt. The aligment is a sequence of"
+	    + "structS1.aas.txt and structS2.aas.txt. The alignment is a sequence of"
 	    + "edit operations of the form (i, i) - match, (i, j) - mismatch,"
 	    + " (-, i) - insertion, (i, -) - deletion\n\n";
 
@@ -73,7 +73,7 @@ public interface CommandLineMessages {
 	    + "structures and containing the SERNA Distance calculated "
 	    + "for each pair of processed structures. By default the "
 	    + "output files are put in the input folder. Use option -o"
-	    + " file-1 file-2 to specifiy different output files.\n\n";
+	    + " file-1 file-2 to specify different output files.\n\n";
     public static String USAGE_EXAMPLES_WB = "Usage examples:\n\n>"
 	    + LAUNCH_COMMAND_WB
 	    + " -f Eukaryota23S\n\nProcess all the files in folder "
@@ -92,7 +92,7 @@ public interface CommandLineMessages {
 	    + " of processed structures in file \"structs.csv\" and comparison "
 	    + "results in file \"cmpr.csv\".\n\n";
 
-    public static String COPYRIGHT = "*********************************************\nSERNAling Copyright (C) 2020 Luca Tesei, Francesca Levi, Michela Quadrini, "
+    public static String COPYRIGHT = "*********************************************\nSERNAling Copyright (C) 2024 Luca Tesei, Francesca Levi, Michela Quadrini, "
 	    + "Emanuela Merelli - BioShape and Data Science Lab at the University of Camerino,"
 	    + " Italy - http://www.emanuelamerelli.eu/bigdata/\n\n";
     public static String SHORT_NOTICE = "This program comes with ABSOLUTELY NO WARRANTY; for details use "
@@ -109,6 +109,6 @@ public interface CommandLineMessages {
 	    + "You should have received a copy of the GNU General Public License "
 	    + "along with this program.  If not, see <http://www.gnu.org/licenses/>.\n\n";
     public static String REPORT_TO = "Please report any issue to luca.tesei@unicam.it or to Luca Tesei, "
-	    + "Polo Informatico, via Madonna delle Carceri 9, 62032 Camerino (MC) Italy.";
+	    + "Polo Informatico, via Madonna delle Carceri 7, 62032 Camerino (MC) Italy.";
 
 }
